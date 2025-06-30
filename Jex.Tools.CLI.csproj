@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <AssemblyName>jex-tools</AssemblyName>
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>jex-tools</ToolCommandName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.6" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.6" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.4" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Jex.Tools.CLI.Core\Jex.Tools.CLI.Core.csproj" />
+        <ProjectReference Include="..\..\Jex.Tools.OpenPullrequests\Jex.Tools.OpenPullrequests.csproj" />
+        <ProjectReference Include="..\..\Jex.Tools.SolutionStructureAnalyzer\Jex.Tools.SolutionStructureAnalyzer.csproj" />
+        <ProjectReference Include="..\..\Jex.Tools.SystemInfo\Jex.Tools.SystemInfo.csproj" />
+        <ProjectReference Include="..\..\modules\Jex.Tools.SolutionCodeExtractor\Jex.Tools.SolutionCodeExtractor.csproj" />
+    </ItemGroup>
+
+    <Target Name="CopyModules" AfterTargets="Build">
+        <ItemGroup>
+            <ModuleFiles Include="$(OutputPath)*.dll" />
+        </ItemGroup>
+        <Copy SourceFiles="@(ModuleFiles)" DestinationFolder="$(OutputPath)modules" />
+    </Target>
+
+</Project>
